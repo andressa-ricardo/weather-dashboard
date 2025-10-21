@@ -3,16 +3,19 @@ import { TitleHeader } from "./components/weather/TitleHeader";
 import { SearchBar } from "./components/weather/SearchBar";
 import { WelcomeMessage } from "./components/weather/WelcomeMessage";
 import { getWeather } from "./services/weatherApi";
+import { WeatherInfo } from "./components/WeatherInfo";
 
 export default function App() {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
+  const [weather, setWeather] = useState<any | null>(null);
 
   const handleSearch = async () => {
     if (!city) return alert("Digite o nome de uma cidade!");
     setLoading(true);
     try {
-      await getWeather(city);
+      const data = await getWeather(city);
+      setWeather(data);
     } catch {
       alert("Erro ao buscar dados. Verifique o nome da cidade.");
     } finally {
@@ -29,7 +32,8 @@ export default function App() {
         onSearch={handleSearch}
         loading={loading}
       />
-      <WelcomeMessage />
+
+      {weather ? <WeatherInfo data={weather} /> : <WelcomeMessage />}
     </div>
   );
 }
