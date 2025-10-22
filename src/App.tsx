@@ -2,8 +2,8 @@ import { useState } from "react";
 import { TitleHeader } from "./components/weather/TitleHeader";
 import { SearchBar } from "./components/weather/SearchBar";
 import { WelcomeMessage } from "./components/weather/WelcomeMessage";
-import { getWeather } from "./services/weatherApi";
 import { WeatherInfo } from "./components/WeatherInfo";
+import { getWeather } from "./services/weatherApi";
 
 export default function App() {
   const [city, setCity] = useState("");
@@ -11,13 +11,19 @@ export default function App() {
   const [weather, setWeather] = useState<any | null>(null);
 
   const handleSearch = async () => {
-    if (!city) return alert("Digite o nome de uma cidade!");
+    if (!city.trim()) {
+      alert("Digite o nome da cidade!");
+      return;
+    }
+
     setLoading(true);
     try {
       const data = await getWeather(city);
       setWeather(data);
-    } catch {
-      alert("Erro ao buscar dados. Verifique o nome da cidade.");
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || "Erro ao buscar dados. Tente novamente.");
+      setWeather(null);
     } finally {
       setLoading(false);
     }
@@ -26,14 +32,16 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start pt-16 px-4  from-[#d9ecff] via-[#cfe8ff] to-[#ffffff]">
       <TitleHeader />
+
       <SearchBar
         city={city}
         onChange={(e) => setCity(e.target.value)}
         onSearch={handleSearch}
+        onSelectCity={(cityName) => setCity(cityName)}
         loading={loading}
       />
 
-      {weather ? <WeatherInfo data={weather} /> : <WelcomeMessage />}
+      {weather ? <WeatherInfo data={weather.current} /> : <WelcomeMessage />}
     </div>
   );
 }

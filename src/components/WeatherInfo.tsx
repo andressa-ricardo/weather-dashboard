@@ -3,15 +3,28 @@ import {
   Droplets,
   Wind,
   Gauge,
-  Sun,
   Sunrise,
   Sunset,
   Cloud,
-  Umbrella,
 } from "lucide-react";
 
 interface WeatherInfoProps {
-  data: any;
+  data: {
+    city: string;
+    country: string;
+    temperature: number;
+    feelsLike: number;
+    humidity: number;
+    pressure: number;
+    windSpeed: number;
+    windDirection: string;
+    condition: string;
+    conditionDescription: string;
+    icon: string;
+    sunrise: string;
+    sunset: string;
+    lastUpdated: string;
+  };
 }
 
 export function WeatherInfo({ data }: WeatherInfoProps) {
@@ -25,7 +38,7 @@ export function WeatherInfo({ data }: WeatherInfoProps) {
     { title: "Umidade", value: `${data.humidity}%`, icon: <Droplets /> },
     {
       title: "Vento",
-      value: `${data.windSpeed} km/h`,
+      value: `${data.windSpeed} m/s`,
       desc: `Direção: ${data.windDirection}`,
       icon: <Wind />,
     },
@@ -36,11 +49,27 @@ export function WeatherInfo({ data }: WeatherInfoProps) {
   ];
 
   return (
-    <section className="mt-8 w-full max-w-5xl mx-auto">
+    <section className="mt-8 w-full max-w-4xl mx-auto">
       <div className="text-center mb-4">
-        <h2 className="text-3xl font-bold text-gray-800">{data.city}</h2>
+        <h2 className="text-3xl font-bold text-gray-800">
+          {data.city}, {data.country}
+        </h2>
         <p className="text-gray-500 text-sm">
-          Última atualização: {new Date().toLocaleTimeString().slice(0, 5)}
+          Última atualização: {data.lastUpdated}
+        </p>
+      </div>
+
+      <div className="flex flex-col items-center justify-center mb-8">
+        <img
+          src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+          alt={data.condition}
+          className="w-24 h-24"
+        />
+        <p className="text-6xl font-bold text-gray-800 mt-2">
+          {Math.round(data.temperature)}°C
+        </p>
+        <p className="text-gray-600 text-sm mt-1 capitalize">
+          {data.conditionDescription}
         </p>
       </div>
 
