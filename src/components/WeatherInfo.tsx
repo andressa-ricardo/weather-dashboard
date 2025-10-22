@@ -1,12 +1,5 @@
-import {
-  Thermometer,
-  Droplets,
-  Wind,
-  Gauge,
-  Sunrise,
-  Sunset,
-  Cloud,
-} from "lucide-react";
+import { Droplets, Wind, Gauge, Sunrise, Sunset, Cloud } from "lucide-react";
+import { WeatherCharts } from "./weather/WeatherCharts";
 
 interface WeatherInfoProps {
   data: {
@@ -14,10 +7,15 @@ interface WeatherInfoProps {
     country: string;
     temperature: number;
     feelsLike: number;
+    temp_min: number;
+    temp_max: number;
     humidity: number;
     pressure: number;
     windSpeed: number;
+    wind_deg: number;
     windDirection: string;
+    clouds: { all: number };
+    visibility: number;
     condition: string;
     conditionDescription: string;
     icon: string;
@@ -29,16 +27,10 @@ interface WeatherInfoProps {
 
 export function WeatherInfo({ data }: WeatherInfoProps) {
   const items = [
-    {
-      title: "Temperatura",
-      value: `${data.temperature.toFixed(1)}°C`,
-      desc: `Sensação: ${data.feelsLike.toFixed(1)}°C`,
-      icon: <Thermometer />,
-    },
     { title: "Umidade", value: `${data.humidity}%`, icon: <Droplets /> },
     {
       title: "Vento",
-      value: `${data.windSpeed} m/s`,
+      value: `${data.windSpeed.toFixed(2)} m/s`,
       desc: `Direção: ${data.windDirection}`,
       icon: <Wind />,
     },
@@ -49,9 +41,9 @@ export function WeatherInfo({ data }: WeatherInfoProps) {
   ];
 
   return (
-    <section className="mt-8 w-full max-w-4xl mx-auto">
+    <section className="mt-8 w-full max-w-5xl mx-auto">
       <div className="text-center mb-4">
-        <h2 className="text-3xl font-bold text-gray-800">
+        <h2 className="text-2xl font-bold text-gray-800">
           {data.city}, {data.country}
         </h2>
         <p className="text-gray-500 text-sm">
@@ -60,24 +52,30 @@ export function WeatherInfo({ data }: WeatherInfoProps) {
       </div>
 
       <div className="flex flex-col items-center justify-center mb-8">
-        <img
-          src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
-          alt={data.condition}
-          className="w-24 h-24"
-        />
-        <p className="text-6xl font-bold text-gray-800 mt-2">
-          {Math.round(data.temperature)}°C
-        </p>
-        <p className="text-gray-600 text-sm mt-1 capitalize">
+        <div className="flex items-center gap-4">
+          <p className="text-5xl font-bold text-gray-800">
+            {Math.round(data.temperature)}°C
+          </p>
+          <img
+            src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
+            alt={data.condition}
+            className="w-20 h-20"
+          />
+        </div>
+        <p className="text-gray-600 text-sm mt-2 capitalize">
           {data.conditionDescription}
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="mb-10">
+        <WeatherCharts data={data} />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {items.map((item) => (
           <div
             key={item.title}
-            className="bg-white/80 shadow-md rounded-lg p-4 flex flex-col items-center justify-center text-center"
+            className="bg-white/90 backdrop-blur-md shadow-md rounded-xl p-5 flex flex-col items-center justify-center text-center transition-transform hover:scale-105"
           >
             <div className="text-blue-500 mb-2">{item.icon}</div>
             <h3 className="text-sm text-gray-600">{item.title}</h3>
