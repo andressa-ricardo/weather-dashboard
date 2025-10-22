@@ -1,73 +1,73 @@
-# React + TypeScript + Vite
+# 🌦️ Tempo Certo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Tempo Certo** é um painel moderno e responsivo de meteorologia construído com **React + TypeScript + TailwindCSS**, que consome a API pública do **OpenWeather** para exibir informações em tempo real sobre o clima em qualquer cidade do mundo.  
 
-Currently, two official plugins are available:
+O projeto inclui recursos avançados como:
+- 🔍 **Busca inteligente de cidades** com autocomplete  
+- 🌍 **Suporte global** (não limitado ao Brasil)  
+- 📊 **Gráficos de temperatura, vento e nuvens**  
+- 💬 **Mensagens de erro amigáveis e traduzidas para português**  
+- 🎨 **Interface moderna e responsiva inspirada em dashboards profissionais**  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## 🚀 Tecnologias Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ⚛️ **React** + **Vite**  
+- 💬 **TypeScript**  
+- 🎨 **TailwindCSS**  
+- ☁️ **OpenWeather API**  
+- 🧭 **Lucide Icons**  
+- 📦 **Axios**
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Como Rodar o Projeto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalação
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Clone o repositório**
+   ```sh
+   git clone https://github.com/seu-usuario/weather-dashboard.git
+   cd weather-api
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. **Instale as dependências**
+   ```sh
+   npm install || yarn install
+   ```
+
+3. **Configure as variáveis de ambiente**
+   Crie um arquivo `.env` na raiz do projeto e adicione sua chave da API do OpenWeather:
+   ```env
+   OPENWEATHER_API_KEY=SEU_API_KEY_AQUI
+   ```
+
+## Obtendo a API Key do Open Weather
+Para utilizar a API, é necessário obter uma API Key do site. Siga os passos abaixo:
+
+1. **Acesse o site**
+   - Vá para https://openweathermap.org/ e crie uma conta caso ainda não tenha uma.
+
+2. **Cadastre-se ou faça login**
+   - Se já tiver uma conta, basta fazer login. Caso contrário, clique em "Registrar" e siga o processo de cadastro.
+
+3. **Obtenha sua API Key**
+   - Após o login, vá para a seção "My profile" ou "My API Keys" no painel do usuário.
+   - Clique em "Gerar nova chave" e copie o código gerado.
+
+4. **Configure no projeto**
+   - No arquivo `.env`, substitua `VITE_OPENWEATHER_KEY` pela chave gerada.
+
+## Rodando a Aplicação
+
+### Rodando Localmente
+```sh
+npm run dev
 ```
+A aplicação estará disponível em `http://localhost:5173`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Autor
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **LinkedIn:** [Andressa Ricardo](https://www.linkedin.com/in/andressa-ricardo/)
+- **GitHub:** [andressa-ricardo](https://github.com/andressa-ricardo)
