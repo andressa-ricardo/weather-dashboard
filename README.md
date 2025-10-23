@@ -28,7 +28,7 @@ O projeto inclui recursos avançados como:
 1. **Clone o repositório**
    ```sh
    git clone https://github.com/seu-usuario/weather-dashboard.git
-   cd weather-api
+   cd weather-dashboard
    ```
 
 2. **Instale as dependências**
